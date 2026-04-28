@@ -11,6 +11,7 @@
     <div class="container">
 
         <img src="logo.png" class="logo">
+
         <h1>Advanced Personal Colour Analysis – $19.99</h1>
 
         <!-- Upload -->
@@ -23,26 +24,28 @@
         <div class="section hidden" id="previewSection">
             <h2>✨ Preview Result (Free)</h2>
             <div id="previewOutput"></div>
-            <p><b>Unlock your full premium report below 👇</b></p>
+            <p><b>Unlock full premium report below 👇</b></p>
         </div>
 
-        <!-- Payment Section -->
+        <!-- Payment -->
         <div class="section hidden" id="paymentSection">
             <h2>Complete Payment – $19.99</h2>
 
-            <p>Pay using PayPal QR below:</p>
-            <img src="paypal-qr.png" class="qr">
+            <p>Pay using PayPal QR:</p>
 
-            <p>Upload your payment screenshot:</p>
+            <!-- FIXED IMAGE PATH -->
+            <img src="paypal-qr.png" class="qr" alt="PayPal QR Code">
+
+            <p>Upload payment screenshot:</p>
             <input type="file" id="paymentProof" accept="image/*">
 
             <a href="https://forms.gle/ozaWvZJBFKpBxKgb6" target="_blank" class="form-btn">
-                Fill Details (Google Form)
+                Fill Google Form
             </a>
         </div>
 
-        <!-- Generate Button -->
-        <button id="analyzeBtn" disabled>Generate Full Premium PDF</button>
+        <!-- Button -->
+        <button id="analyzeBtn" disabled>Generate Full Premium Report</button>
 
         <div id="result"></div>
     </div>
