@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
 let imageFile = null;
 let paymentFile = null;
 
-// Elements (SAFE references)
 const imageUpload = document.getElementById("imageUpload");
 const previewSection = document.getElementById("previewSection");
 const previewOutput = document.getElementById("previewOutput");
@@ -12,60 +11,39 @@ const paymentProof = document.getElementById("paymentProof");
 const analyzeBtn = document.getElementById("analyzeBtn");
 const result = document.getElementById("result");
 
-// -------------------- IMAGE UPLOAD --------------------
+// IMAGE UPLOAD
 imageUpload.addEventListener("change", function () {
 
     imageFile = this.files[0];
-
     if (!imageFile) return;
 
-    showPreview();
+    previewSection.classList.remove("hidden");
+    paymentSection.classList.remove("hidden");
 
-    if (paymentSection) {
-        paymentSection.classList.remove("hidden");
-    }
+    previewOutput.innerHTML = `
+        <h3>Basic Analysis</h3>
+        <ul>
+            <li><b>Undertone:</b> Neutral Warm</li>
+            <li><b>Season:</b> Soft Autumn</li>
+            <li><b>Contrast:</b> Medium Low</li>
+        </ul>
+
+        <p style="margin-top:10px;">🔒 Full report includes palette, styling & guide</p>
+    `;
 });
 
-// -------------------- PREVIEW --------------------
-function showPreview() {
-
-    if (previewSection) {
-        previewSection.classList.remove("hidden");
-    }
-
-    if (previewOutput) {
-        previewOutput.innerHTML = `
-            <h3>Basic Analysis</h3>
-            <ul>
-                <li><b>Undertone:</b> Neutral Warm</li>
-                <li><b>Season:</b> Soft Autumn</li>
-                <li><b>Contrast:</b> Medium Low</li>
-            </ul>
-
-            <div style="display:flex;gap:10px;margin-top:10px;">
-                <div style="width:40px;height:40px;background:#d4a373;border-radius:6px;"></div>
-                <div style="width:40px;height:40px;background:#b5838d;border-radius:6px;"></div>
-                <div style="width:40px;height:40px;background:#6b705c;border-radius:6px;"></div>
-            </div>
-        `;
-    }
-}
-
-// -------------------- PAYMENT PROOF --------------------
+// PAYMENT PROOF
 paymentProof.addEventListener("change", function () {
 
     paymentFile = this.files[0];
 
     if (paymentFile) {
         analyzeBtn.disabled = false;
-
-        if (result) {
-            result.innerHTML = "<p>✔ Ready to generate report</p>";
-        }
+        result.innerHTML = "<p>✔ Ready to generate report</p>";
     }
 });
 
-// -------------------- GENERATE REPORT --------------------
+// GENERATE REPORT
 analyzeBtn.addEventListener("click", function () {
 
     if (!imageFile || !paymentFile) {
@@ -73,43 +51,66 @@ analyzeBtn.addEventListener("click", function () {
         return;
     }
 
-    result.innerHTML = "<p>Generating report...</p>";
+    result.innerHTML = "<p>Generating full report...</p>";
 
-    setTimeout(generatePDF, 1000);
+    setTimeout(generatePDF, 800);
 });
 
-// -------------------- PDF --------------------
+// ✅ REAL PDF (FULL REPORT)
 function generatePDF() {
 
-    const content = `
-PREMIUM COLOUR ANALYSIS REPORT
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-Undertone: Neutral Warm
-Season: Soft Autumn
+    // PAGE 1
+    doc.setFontSize(18);
+    doc.text("PREMIUM COLOUR ANALYSIS REPORT", 10, 20);
 
-Palette:
-- Olive, Camel, Dusty Rose
-- Soft Teal, Cocoa
+    doc.setFontSize(12);
 
-Makeup:
-- Warm nude lips
-- Soft bronze eyes
+    doc.text("Undertone: Neutral Warm", 10, 40);
+    doc.text("Season: Soft Autumn", 10, 50);
+    doc.text("Contrast Level: Medium Low", 10, 60);
 
-Hair:
-- Warm brown tones
+    doc.text("Recommended Palette:", 10, 80);
+    doc.text("- Olive Green", 10, 90);
+    doc.text("- Camel Beige", 10, 100);
+    doc.text("- Dusty Rose", 10, 110);
+    doc.text("- Soft Teal", 10, 120);
+    doc.text("- Cocoa Brown", 10, 130);
 
-Accessories:
-- Gold & rose gold
-`;
+    doc.text("Makeup Recommendations:", 10, 150);
+    doc.text("- Warm nude lipstick", 10, 160);
+    doc.text("- Peach / bronze blush", 10, 170);
+    doc.text("- Soft brown eyeliner", 10, 180);
 
-    const blob = new Blob([content], { type: "application/pdf" });
+    doc.text("Hair Colour Suggestions:", 10, 200);
+    doc.text("- Warm brown", 10, 210);
+    doc.text("- Chestnut", 10, 220);
 
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "Colour_Report.pdf";
-    link.click();
+    // PAGE 2
+    doc.addPage();
 
-    result.innerHTML = "<p>✔ Download complete</p>";
+    doc.setFontSize(16);
+    doc.text("Styling Guide", 10, 20);
+
+    doc.setFontSize(12);
+
+    doc.text("Best Clothing Colours:", 10, 40);
+    doc.text("- Earth tones", 10, 50);
+    doc.text("- Muted warm shades", 10, 60);
+
+    doc.text("Avoid:", 10, 80);
+    doc.text("- Neon colours", 10, 90);
+    doc.text("- Cool icy tones", 10, 100);
+
+    doc.text("Accessories:", 10, 120);
+    doc.text("- Gold jewellery", 10, 130);
+    doc.text("- Rose gold", 10, 140);
+
+    doc.save("Premium_Colour_Report.pdf");
+
+    result.innerHTML = "<p>✔ Report downloaded successfully</p>";
 }
 
 });
