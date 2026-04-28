@@ -1,111 +1,115 @@
+document.addEventListener("DOMContentLoaded", function () {
+
 let imageFile = null;
 let paymentFile = null;
 
-// Step 1: Image upload → show preview + payment section
-document.getElementById("imageUpload").addEventListener("change", function () {
+// Elements (SAFE references)
+const imageUpload = document.getElementById("imageUpload");
+const previewSection = document.getElementById("previewSection");
+const previewOutput = document.getElementById("previewOutput");
+const paymentSection = document.getElementById("paymentSection");
+const paymentProof = document.getElementById("paymentProof");
+const analyzeBtn = document.getElementById("analyzeBtn");
+const result = document.getElementById("result");
+
+// -------------------- IMAGE UPLOAD --------------------
+imageUpload.addEventListener("change", function () {
+
     imageFile = this.files[0];
-    if (imageFile) {
-        showPreview();
-        document.getElementById("paymentSection").classList.remove("hidden");
+
+    if (!imageFile) return;
+
+    showPreview();
+
+    if (paymentSection) {
+        paymentSection.classList.remove("hidden");
     }
 });
 
+// -------------------- PREVIEW --------------------
 function showPreview() {
-    const previewSection = document.getElementById("previewSection");
-    const previewOutput = document.getElementById("previewOutput");
-    previewSection.classList.remove("hidden");
 
-    previewOutput.innerHTML = `
-        <h3>Personal Tone Preview</h3>
-        <ul>
-            <li><b>Undertone:</b> Neutral leaning Warm</li>
-            <li><b>Temperature Type:</b> Soft Warm</li>
-            <li><b>Season Suggestion:</b> Soft Autumn</li>
-        </ul>
+    if (previewSection) {
+        previewSection.classList.remove("hidden");
+    }
 
-        <h4>Sample Palette</h4>
-        <div style="display:flex;gap:10px;margin-top:10px;">
-            <div style="width:40px;height:40px;background:#d4a373;border-radius:6px;"></div>
-            <div style="width:40px;height:40px;background:#b5838d;border-radius:6px;"></div>
-            <div style="width:40px;height:40px;background:#6b705c;border-radius:6px;"></div>
-        </div>
-    `;
+    if (previewOutput) {
+        previewOutput.innerHTML = `
+            <h3>Basic Analysis</h3>
+            <ul>
+                <li><b>Undertone:</b> Neutral Warm</li>
+                <li><b>Season:</b> Soft Autumn</li>
+                <li><b>Contrast:</b> Medium Low</li>
+            </ul>
+
+            <div style="display:flex;gap:10px;margin-top:10px;">
+                <div style="width:40px;height:40px;background:#d4a373;border-radius:6px;"></div>
+                <div style="width:40px;height:40px;background:#b5838d;border-radius:6px;"></div>
+                <div style="width:40px;height:40px;background:#6b705c;border-radius:6px;"></div>
+            </div>
+        `;
+    }
 }
 
-// Step 2: Payment proof upload → enable button
-document.getElementById("paymentProof").addEventListener("change", function () {
+// -------------------- PAYMENT PROOF --------------------
+paymentProof.addEventListener("change", function () {
+
     paymentFile = this.files[0];
+
     if (paymentFile) {
-        document.getElementById("analyzeBtn").disabled = false;
-        document.getElementById("result").innerHTML =
-            "<p>✔ Payment received (manual verification via form). Ready to generate report.</p>";
+        analyzeBtn.disabled = false;
+
+        if (result) {
+            result.innerHTML = "<p>✔ Ready to generate report</p>";
+        }
     }
 });
 
-// Step 3: Generate PDF
-document.getElementById("analyzeBtn").addEventListener("click", function () {
+// -------------------- GENERATE REPORT --------------------
+analyzeBtn.addEventListener("click", function () {
+
     if (!imageFile || !paymentFile) {
-        alert("Please upload photo and payment proof.");
+        alert("Please complete all steps.");
         return;
     }
 
-    document.getElementById("result").innerHTML =
-        "<p>Generating your premium report...</p>";
+    result.innerHTML = "<p>Generating report...</p>";
 
-    setTimeout(() => generatePDF(), 1200);
+    setTimeout(generatePDF, 1000);
 });
 
+// -------------------- PDF --------------------
 function generatePDF() {
-    const pdfName = "Premium_Colour_Analysis_Report.pdf";
 
     const content = `
---- PREMIUM COLOUR ANALYSIS REPORT ($19.99) ---
+PREMIUM COLOUR ANALYSIS REPORT
 
-PAGE 1: UNDERTONE ANALYSIS
-• Neutral Warm Balance
-• Soft seasonal influence
-• Medium contrast profile
+Undertone: Neutral Warm
+Season: Soft Autumn
 
-PAGE 2: SEASON RESULT
-Primary: Soft Autumn
-Secondary: Warm Autumn traits
+Palette:
+- Olive, Camel, Dusty Rose
+- Soft Teal, Cocoa
 
-PAGE 3: COLOR PALETTE
-• Olive, Camel, Warm Beige
-• Dusty Rose, Muted Coral
-• Soft Teal, Cocoa tones
+Makeup:
+- Warm nude lips
+- Soft bronze eyes
 
-PAGE 4: OUTFIT GUIDELINES
-• Daily wear palette
-• Office styling tones
-• Occasion styling combinations
+Hair:
+- Warm brown tones
 
-PAGE 5: MAKEUP GUIDE
-• Lips: Warm nude, rose brown
-• Blush: Peach coral
-• Eyes: Bronze, soft brown
-
-PAGE 6: HAIR RECOMMENDATIONS
-• Warm brown
-• Chestnut tones
-• Golden black variations
-
-PAGE 7: ACCESSORIES
-• Gold & rose gold metals
-• Warm tone glasses
-• Soft neutral bags
-
-PAGE 8: DIGITAL SWATCH CARD
-• Mobile-friendly palette guide
-• HEX reference colors
+Accessories:
+- Gold & rose gold
 `;
 
     const blob = new Blob([content], { type: "application/pdf" });
+
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = pdfName;
+    link.download = "Colour_Report.pdf";
     link.click();
 
-    document.getElementById("result").innerHTML =
-        "<p>✔ Premium report downloaded successfully!</p>";
+    result.innerHTML = "<p>✔ Download complete</p>";
 }
+
+});
