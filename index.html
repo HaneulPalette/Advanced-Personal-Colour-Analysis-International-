@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Personal Colour Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <img src="logo.png" class="logo">
+        <h1>Advanced Personal Colour Analysis – $19.99</h1>
+
+        <!-- Upload -->
+        <div class="section">
+            <label>Select Your Photo</label>
+            <input type="file" id="imageUpload" accept="image/*">
+        </div>
+
+        <!-- Preview -->
+        <div class="section hidden" id="previewSection">
+            <h2>✨ Preview Result (Free)</h2>
+            <div id="previewOutput"></div>
+            <p><b>Unlock your full premium report below 👇</b></p>
+        </div>
+
+        <!-- Payment Section -->
+        <div class="section hidden" id="paymentSection">
+            <h2>Complete Payment – $19.99</h2>
+
+            <p>Pay using PayPal QR below:</p>
+            <img src="paypal-qr.png" class="qr">
+
+            <p>Upload your payment screenshot:</p>
+            <input type="file" id="paymentProof" accept="image/*">
+
+            <a href="https://forms.gle/ozaWvZJBFKpBxKgb6" target="_blank" class="form-btn">
+                Fill Details (Google Form)
+            </a>
+        </div>
+
+        <!-- Generate Button -->
+        <button id="analyzeBtn" disabled>Generate Full Premium PDF</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
