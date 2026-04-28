@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f7fb;
+    margin: 0;
+    padding: 20px;
+    color: #222;
+}
+
+/* Main container */
+.container {
+    max-width: 650px;
+    margin: auto;
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* Logo */
+.logo {
+    width: 140px;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+/* Title */
+h1 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 25px;
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* File inputs */
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 14px;
+    background: #111;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #333;
+}
+
+button:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+/* QR image */
+.qr {
+    width: 220px;
+    display: block;
+    margin: 12px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Google Form button */
+.form-btn {
+    display: block;
+    text-align: center;
+    background: #4285F4;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+/* Hidden sections */
+.hidden {
+    display: none;
+}
+
+/* Preview box */
+#previewOutput {
+    background: #f9fafc;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+/* Result message */
+#result {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 500;
+}
