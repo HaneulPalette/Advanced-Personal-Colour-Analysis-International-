@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Colour Analysis</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -33,8 +34,7 @@
         <h2>Payment – $19.99</h2>
 
         <p>Pay using PayPal QR:</p>
-
-        <img src="paypal-qr.png" class="qr" alt="PayPal QR">
+        <img src="paypal-qr.png" class="qr">
 
         <p>Upload payment screenshot:</p>
         <input type="file" id="paymentProof" accept="image/*">
@@ -50,7 +50,11 @@
 
 </div>
 
-<script src="script.js"></script>
+<!-- ✅ jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- ✅ Cache fix -->
+<script src="script.js?v=2"></script>
 
 </body>
 </html>
